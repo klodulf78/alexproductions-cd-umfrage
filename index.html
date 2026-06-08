@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AlexProductions · Corporate Design Briefing</title>
+<style>
+  :root {
+    --ink: #16181d;
+    --muted: #6b7280;
+    --line: #e5e7eb;
+    --bg: #f7f7f5;
+    --card: #ffffff;
+    --accent: #b8893b;
+    --accent-soft: #f3e9d8;
+    --wa: #25d366;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 28px 18px 120px; }
+  header { margin-bottom: 22px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  h1 { font-size: 26px; line-height: 1.2; margin: 6px 0 8px; }
+  .lede { color: var(--muted); font-size: 15px; margin: 0; }
+  .status {
+    background: var(--accent-soft); border-radius: var(--radius);
+    padding: 14px 16px; margin: 18px 0 8px; font-size: 14px;
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px 18px 14px; margin: 14px 0;
+  }
+  .qhead { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
+  .num {
+    flex: none; width: 24px; height: 24px; border-radius: 50%;
+    background: var(--ink); color: #fff; font-size: 13px; font-weight: 700;
+    display: grid; place-items: center;
+  }
+  h2 { font-size: 17px; margin: 0; }
+  .hint { color: var(--muted); font-size: 13px; margin: 2px 0 12px 32px; }
+  .counter { color: var(--accent); font-weight: 700; }
+  .opts { display: grid; gap: 8px; }
+  label.opt {
+    display: flex; gap: 10px; align-items: flex-start;
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: 11px 12px; cursor: pointer; transition: border-color .12s, background .12s;
+  }
+  label.opt:hover { border-color: #cdd1d6; }
+  label.opt.checked { border-color: var(--accent); background: var(--accent-soft); }
+  label.opt input { margin-top: 3px; accent-color: var(--accent); width: 17px; height: 17px; flex: none; }
+  .opt .t { font-size: 14.5px; }
+  .opt .t small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 1px; }
+  .field { margin-top: 10px; }
+  .field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  input[type=text], textarea {
+    width: 100%; border: 1px solid var(--line); border-radius: 9px;
+    padding: 10px 11px; font: inherit; color: var(--ink); background: #fff;
+  }
+  textarea { resize: vertical; min-height: 52px; }
+  .later { font-size: 13px; color: var(--muted); }
+  .later li { margin-bottom: 4px; }
+  .bar {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.94); backdrop-filter: blur(8px);
+    border-top: 1px solid var(--line); padding: 12px 16px;
+  }
+  .bar .inner { max-width: 640px; margin: 0 auto; }
+  .send {
+    width: 100%; border: 0; border-radius: 12px; padding: 15px;
+    background: var(--wa); color: #fff; font-size: 16px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; gap: 9px; cursor: pointer;
+  }
+  .send:active { transform: translateY(1px); }
+  .send svg { width: 20px; height: 20px; fill: #fff; }
+  .barhint { text-align: center; font-size: 12px; color: var(--muted); margin: 7px 0 0; }
+  .thanks { text-align: center; color: var(--muted); font-size: 14px; margin: 26px 0 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">AlexProductions</div>
+    <h1>Dein neues Corporate Design</h1>
+    <p class="lede">Kurze Umfrage. Häkchen setzen, fertig. Dauert keine 5 Minuten.</p>
+    <div class="status">
+      Die Grundlage steht. Als Nächstes entwerfen wir Farben, Schrift und Logo, mit dem Ziel:
+      hochwertige Wirkung für größere Geschäftskunden. Dafür brauchen wir kurz deine Richtung.
+    </div>
+  </header>
+
+  <form id="form">
+
+    <div class="card">
+      <div class="qhead"><span class="num">1</span><h2>Markenadjektive</h2></div>
+      <div class="hint">Wie soll deine Marke wirken? Wähle <span class="counter" id="adjCount">0 von 3</span></div>
+      <div class="opts" data-group="adjektive" data-max="3">
+        <label class="opt"><input type="checkbox" value="hochwertig"><span class="t">hochwertig</span></label>
+        <label class="opt"><input type="checkbox" value="kompetent"><span class="t">kompetent</span></label>
+        <label class="opt"><input type="checkbox" value="vernetzt"><span class="t">vernetzt</span></label>
+        <label class="opt"><input type="checkbox" value="verlässlich"><span class="t">verlässlich</span></label>
+        <label class="opt"><input type="checkbox" value="erfahren"><span class="t">erfahren</span></label>
+        <label class="opt"><input type="checkbox" value="modern"><span class="t">modern</span></label>
+        <label class="opt"><input type="checkbox" value="bodenständig"><span class="t">bodenständig</span></label>
+        <label class="opt"><input type="checkbox" value="kreativ"><span class="t">kreativ</span></label>
+      </div>
+      <div class="field"><label>Eigenes Wort (optional)</label><input type="text" data-field="Adjektiv eigen" placeholder="z. B. präzise"></div>
+    </div>
+
+    <div class="card">
+      <div class="qhead"><span class="num">2</span><h2>Ansprache</h2></div>
+      <div class="hint">Wie sollen Texte Kunden ansprechen?</div>
+      <div class="opts" data-group="ansprache" data-single="1">
+        <label class="opt"><input type="radio" name="ansprache" value="Du (persönlich, nah)"><span class="t">Du<small>persönlich, nah, wie auf deiner heutigen Seite</small></span></label>
+        <label class="opt"><input type="radio" name="ansprache" value="Sie (formeller, klassisch B2B)"><span class="t">Sie<small>formeller, klassisch B2B</small></span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="qhead"><span class="num">3</span><h2>Claim</h2></div>
+      <div class="hint">Heute: „Deine Medienproduzenten“. Was soll passieren?</div>
+      <div class="opts" data-group="claim" data-single="1">
+        <label class="opt"><input type="radio" name="claim" value="so lassen"><span class="t">So lassen</span></label>
+        <label class="opt"><input type="radio" name="claim" value="überarbeiten, offen für Vorschläge"><span class="t">Überarbeiten, offen für Vorschläge</span></label>
+      </div>
+      <div class="field"><label>Eigener Wunsch (optional)</label><input type="text" data-field="Claim Wunsch" placeholder="dein Vorschlag"></div>
+    </div>
+
+    <div class="card">
+      <div class="qhead"><span class="num">4</span><h2>Farbrichtung</h2></div>
+      <div class="hint">Nur die Richtung, keine fertige Palette.</div>
+      <div class="opts" data-group="farbe" data-single="1">
+        <label class="opt"><input type="radio" name="farbe" value="dunkel und edel"><span class="t">Dunkel und edel<small>Anthrazit, Schwarz, ein kräftiger Akzent. Premium und ruhig.</small></span></label>
+        <label class="opt"><input type="radio" name="farbe" value="hell und klar"><span class="t">Hell und klar<small>Weiß, viel Raum, dezenter Akzent. Modern und sachlich.</small></span></label>
+        <label class="opt"><input type="radio" name="farbe" value="farbig und markant"><span class="t">Farbig und markant<small>eine starke Hausfarbe als Wiedererkennung.</small></span></label>
+      </div>
+      <div class="field"><label>Wunschfarben (optional)</label><input type="text" data-field="Wunschfarben" placeholder="z. B. Blau"></div>
+      <div class="field"><label>No-Gos (optional)</label><input type="text" data-field="Farb-No-Gos" placeholder="Farben, die gar nicht gehen"></div>
+    </div>
+
+    <div class="card">
+      <div class="qhead"><span class="num">5</span><h2>Schriftcharakter</h2></div>
+      <div class="hint">Wie sollen Überschriften und Texte wirken?</div>
+      <div class="opts" data-group="schrift" data-single="1">
+        <label class="opt"><input type="radio" name="schrift" value="modern und klar"><span class="t">Modern und klar<small>klare Linien, sachlich</small></span></label>
+        <label class="opt"><input type="radio" name="schrift" value="klassisch und seriös"><span class="t">Klassisch und seriös<small>mit Serifen, edler Eindruck</small></span></label>
+        <label class="opt"><input type="radio" name="schrift" value="charakterstark"><span class="t">Charakterstark<small>auffällige Überschriften, ruhiger Fließtext</small></span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="qhead"><span class="num">6</span><h2>Logo</h2></div>
+      <div class="hint">Wir gestalten es neu. Welche Richtung?</div>
+      <div class="opts" data-group="logo" data-single="1">
+        <label class="opt"><input type="radio" name="logo" value="nur Schriftzug"><span class="t">Nur Schriftzug „AlexProductions“</span></label>
+        <label class="opt"><input type="radio" name="logo" value="Schriftzug plus Bildmarke"><span class="t">Schriftzug plus kleine Bildmarke (Symbol)</span></label>
+        <label class="opt"><input type="radio" name="logo" value="egal, zeigt Vorschläge"><span class="t">Egal, zeigt mir Vorschläge</span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="qhead"><span class="num">7</span><h2>Referenzen freigeben</h2></div>
+      <div class="hint">Welche Kunden dürfen wir öffentlich auf der Website zeigen?</div>
+      <div class="opts" data-group="referenzen">
+        <label class="opt"><input type="checkbox" value="rbb"><span class="t">rbb</span></label>
+        <label class="opt"><input type="checkbox" value="NDR"><span class="t">NDR</span></label>
+        <label class="opt"><input type="checkbox" value="MDR"><span class="t">MDR</span></label>
+        <label class="opt"><input type="checkbox" value="SWR"><span class="t">SWR</span></label>
+        <label class="opt"><input type="checkbox" value="ORF"><span class="t">ORF</span></label>
+        <label class="opt"><input type="checkbox" value="Sat1"><span class="t">Sat1</span></label>
+        <label class="opt"><input type="checkbox" value="Pro7"><span class="t">Pro7</span></label>
+        <label class="opt"><input type="checkbox" value="Erzbistum Berlin"><span class="t">Erzbistum Berlin</span></label>
+        <label class="opt"><input type="checkbox" value="Landesmusikrat Berlin"><span class="t">Landesmusikrat Berlin</span></label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="qhead"><span class="num">8</span><h2>Sonstiges</h2></div>
+      <div class="hint">Etwas, das wir wissen sollten? (optional)</div>
+      <div class="field"><textarea data-field="Sonstiges" placeholder="Anmerkungen, Ideen, Wünsche"></textarea></div>
+    </div>
+
+    <p class="thanks">Danke dir, das war es schon.</p>
+  </form>
+</div>
+
+<div class="bar">
+  <div class="inner">
+    <button class="send" id="send" type="button">
+      <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.518 5.26l-.999 3.648 3.97-1.042zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+      Antworten an Karl senden
+    </button>
+    <p class="barhint">Öffnet WhatsApp mit fertiger Nachricht. Du tippst nur noch auf Senden.</p>
+  </div>
+</div>
+
+<script>
+  // === Konfiguration: Karls WhatsApp-Nummer im Format Ländercode + Nummer, ohne + und ohne 0 ===
+  // Beispiel Deutschland: 491701234567
+  var WHATSAPP_NUMBER = "4915209217901";
+
+  // Auswahl optisch markieren
+  document.querySelectorAll("label.opt input").forEach(function (inp) {
+    inp.addEventListener("change", function () {
+      if (inp.type === "radio") {
+        document.querySelectorAll('input[name="' + inp.name + '"]').forEach(function (r) {
+          r.closest("label.opt").classList.toggle("checked", r.checked);
+        });
+      } else {
+        inp.closest("label.opt").classList.toggle("checked", inp.checked);
+      }
+      updateAdjCount();
+    });
+  });
+
+  // Adjektive auf 3 begrenzen + Zähler
+  var adjGroup = document.querySelector('[data-group="adjektive"]');
+  function updateAdjCount() {
+    var boxes = adjGroup.querySelectorAll('input[type=checkbox]');
+    var checked = adjGroup.querySelectorAll('input[type=checkbox]:checked');
+    if (checked.length >= 3) {
+      boxes.forEach(function (b) { if (!b.checked) b.disabled = true; });
+    } else {
+      boxes.forEach(function (b) { b.disabled = false; });
+    }
+    document.getElementById("adjCount").textContent = checked.length + " von 3";
+  }
+
+  function checkedValues(group) {
+    return Array.from(document.querySelectorAll('[data-group="' + group + '"] input:checked')).map(function (i) { return i.value; });
+  }
+  function fieldVal(name) {
+    var el = document.querySelector('[data-field="' + name + '"]');
+    return el && el.value.trim() ? el.value.trim() : "";
+  }
+
+  document.getElementById("send").addEventListener("click", function () {
+    var L = [];
+    L.push("*Corporate-Design Briefing · AlexProductions*");
+    L.push("");
+
+    var adj = checkedValues("adjektive");
+    var adjEigen = fieldVal("Adjektiv eigen");
+    if (adjEigen) adj.push(adjEigen + " (eigen)");
+    L.push("1. Adjektive: " + (adj.length ? adj.join(", ") : "—"));
+
+    L.push("2. Ansprache: " + (checkedValues("ansprache")[0] || "—"));
+
+    var claim = checkedValues("claim")[0] || "—";
+    var claimW = fieldVal("Claim Wunsch");
+    L.push("3. Claim: " + claim + (claimW ? " | Wunsch: " + claimW : ""));
+
+    var farbe = checkedValues("farbe")[0] || "—";
+    var wunsch = fieldVal("Wunschfarben");
+    var nogo = fieldVal("Farb-No-Gos");
+    var fl = "4. Farbe: " + farbe;
+    if (wunsch) fl += " | Wunsch: " + wunsch;
+    if (nogo) fl += " | No-Go: " + nogo;
+    L.push(fl);
+
+    L.push("5. Schrift: " + (checkedValues("schrift")[0] || "—"));
+    L.push("6. Logo: " + (checkedValues("logo")[0] || "—"));
+
+    var refs = checkedValues("referenzen");
+    L.push("7. Referenzen frei: " + (refs.length ? refs.join(", ") : "—"));
+
+    var sonst = fieldVal("Sonstiges");
+    if (sonst) L.push("8. Sonstiges: " + sonst);
+
+    var text = encodeURIComponent(L.join("\n"));
+    window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + text, "_blank");
+  });
+
+  updateAdjCount();
+</script>
+</body>
+</html>
