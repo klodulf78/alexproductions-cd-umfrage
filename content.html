@@ -14,7 +14,6 @@
     --accent: #7A2E3B;
     --accent-deep: #56202A;
     --accent-soft: #F2E7E8;
-    --wa: #25d366;
     --radius: 14px;
   }
   * { box-sizing: border-box; }
@@ -26,13 +25,19 @@
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width: 680px; margin: 0 auto; padding: 28px 18px 140px; }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 28px 18px 150px; }
   header { margin-bottom: 22px; }
   .eyebrow { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
   h1 { font-size: 26px; line-height: 1.2; margin: 6px 0 8px; }
   .lede { color: var(--muted); font-size: 15px; margin: 0; }
   .status { background: var(--accent-soft); border-radius: var(--radius); padding: 14px 16px; margin: 18px 0 8px; font-size: 14px; }
   .status strong { color: var(--accent-deep); }
+  .success {
+    display: none;
+    background: #E7EFE9; border: 1px solid #2F4B3C; color: #23392E;
+    border-radius: var(--radius); padding: 14px 16px; margin: 18px 0 8px; font-size: 14px; font-weight: 600;
+  }
+  .success.show { display: block; }
   .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 18px 16px; margin: 14px 0; }
   .qhead { display: flex; align-items: baseline; gap: 8px; margin-bottom: 2px; }
   .num { flex: none; min-width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center; padding: 0 6px; }
@@ -64,8 +69,9 @@
   .bar .inner { max-width: 680px; margin: 0 auto; display: grid; gap: 8px; }
   .send {
     width: 100%; border: 0; border-radius: 12px; padding: 14px;
-    background: var(--wa); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer;
+    background: var(--accent); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer;
   }
+  .send:hover { background: var(--accent-deep); }
   .copy {
     width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 10px;
     background: #fff; color: var(--ink); font-size: 14px; font-weight: 600; cursor: pointer;
@@ -80,12 +86,13 @@
     <div class="eyebrow">AlexProductions · Website</div>
     <h1>Deine Website braucht noch dich.</h1>
     <p class="lede">Die neue Seite steht — jetzt fehlen nur noch deine Inhalte. Füll aus, was du parat hast. <strong>Du kannst auch in Etappen schicken:</strong> leere Felder werden einfach weggelassen.</p>
+    <div class="success" id="success">✓ Angekommen! Deine Antworten sind per Mail bei Karl. Du kannst jederzeit nachliefern.</div>
     <div class="status">
-      📸 🎬 <strong>Fotos &amp; Videos</strong> bitte separat per <strong>WeTransfer oder iCloud-Link an kgellrich@berlinca.de</strong> schicken — hier im Formular reicht es, die Dateinamen zu nennen.
+      📸 🎬 <strong>Fotos &amp; Videos</strong> bitte separat per <strong>WeTransfer an kgellrich@berlinca.de</strong> schicken (wetransfer.com — kein Konto nötig, bis 2 GB pro Sendung). Hier im Formular reicht es, die Dateinamen zu nennen.
     </div>
   </header>
 
-  <form id="form">
+  <form id="form" onsubmit="return false">
 
     <div class="card" data-section="Basics">
       <div class="qhead"><span class="num">1</span><h2>Basics</h2></div>
@@ -200,19 +207,27 @@
 
     <p class="thanks">Danke dir! Jede Antwort ersetzt direkt einen Platzhalter auf der Website.</p>
   </form>
+
+  <!-- Verstecktes Versand-Formular: nur die konsolidierten Felder gehen per Mail raus -->
+  <form id="mailform" action="https://formsubmit.co/kgellrich@berlinca.de" method="POST" hidden>
+    <input type="hidden" name="_subject" value="Website-Inhalte · AlexProductions">
+    <input type="hidden" name="_template" value="box">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_next" value="https://klodulf78.github.io/alexproductions-cd-umfrage/content.html?sent=1">
+    <textarea name="antworten"></textarea>
+    <textarea name="daten_json"></textarea>
+  </form>
 </div>
 
 <div class="bar">
   <div class="inner">
-    <button class="send" id="send" type="button">Antworten an Karl senden (WhatsApp)</button>
-    <button class="copy" id="copy" type="button">…oder Text kopieren &amp; anders schicken</button>
-    <p class="barhint">Leere Felder werden weggelassen. Du kannst mehrfach schicken.</p>
+    <button class="send" id="send" type="button">Antworten per E-Mail an Karl senden</button>
+    <button class="copy" id="save" type="button">…oder Antworten als Datei sichern (JSON)</button>
+    <p class="barhint">Geht direkt als Mail raus — du musst nichts weiter tun. Leere Felder werden weggelassen.</p>
   </div>
 </div>
 
 <script>
-  var WHATSAPP_NUMBER = "4915209217901";
-
   document.querySelectorAll("label.opt input").forEach(function (inp) {
     inp.addEventListener("change", function () {
       document.querySelectorAll('input[name="' + inp.name + '"]').forEach(function (r) {
@@ -221,40 +236,66 @@
     });
   });
 
-  function buildMessage() {
-    var L = ["*Website-Inhalte · AlexProductions*"];
+  // Sammelt alle gefüllten Felder: { Sektion: { Label: Wert } }
+  function buildData() {
+    var sections = {};
     document.querySelectorAll("[data-section]").forEach(function (card) {
-      var lines = [];
+      var entry = {};
       card.querySelectorAll("[data-label]").forEach(function (el) {
         var v = (el.value || "").trim();
-        if (v) lines.push("- " + el.getAttribute("data-label") + ": " + v);
+        if (v) entry[el.getAttribute("data-label")] = v;
       });
       card.querySelectorAll("[data-radio]").forEach(function (group) {
         var checked = group.querySelector("input:checked");
-        if (checked) lines.push("- " + group.getAttribute("data-radio") + ": " + checked.value);
+        if (checked) entry[group.getAttribute("data-radio")] = checked.value;
       });
-      if (lines.length) {
-        L.push("");
-        L.push("*" + card.getAttribute("data-section") + "*");
-        L.push.apply(L, lines);
-      }
+      if (Object.keys(entry).length) sections[card.getAttribute("data-section")] = entry;
     });
-    return L.length > 1 ? L.join("\n") : null;
+    if (!Object.keys(sections).length) return null;
+    return {
+      projekt: "AlexProductions Website-Inhalte",
+      version: 1,
+      gesendet: new Date().toISOString(),
+      sections: sections,
+    };
+  }
+
+  function buildText(data) {
+    var L = [];
+    Object.keys(data.sections).forEach(function (sec) {
+      L.push("== " + sec + " ==");
+      var entry = data.sections[sec];
+      Object.keys(entry).forEach(function (k) { L.push(k + ": " + entry[k]); });
+      L.push("");
+    });
+    return L.join("\n");
   }
 
   document.getElementById("send").addEventListener("click", function () {
-    var msg = buildMessage();
-    if (!msg) { alert("Noch nichts ausgefüllt — füll mindestens ein Feld aus."); return; }
-    window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank");
+    var data = buildData();
+    if (!data) { alert("Noch nichts ausgefüllt — füll mindestens ein Feld aus."); return; }
+    var mf = document.getElementById("mailform");
+    mf.querySelector('[name="antworten"]').value = buildText(data);
+    mf.querySelector('[name="daten_json"]').value = JSON.stringify(data, null, 2);
+    mf.submit();
   });
 
-  document.getElementById("copy").addEventListener("click", function () {
-    var msg = buildMessage();
-    if (!msg) { alert("Noch nichts ausgefüllt — füll mindestens ein Feld aus."); return; }
-    navigator.clipboard.writeText(msg).then(function () {
-      alert("Kopiert! Du kannst den Text jetzt z. B. in eine Mail einfügen.");
-    });
+  document.getElementById("save").addEventListener("click", function () {
+    var data = buildData();
+    if (!data) { alert("Noch nichts ausgefüllt — füll mindestens ein Feld aus."); return; }
+    var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "alexproductions-inhalte.json";
+    a.click();
+    URL.revokeObjectURL(a.href);
   });
+
+  // Erfolgsbanner nach dem Mail-Versand (Redirect mit ?sent=1)
+  if (new URLSearchParams(window.location.search).get("sent") === "1") {
+    document.getElementById("success").classList.add("show");
+    window.scrollTo({ top: 0 });
+  }
 </script>
 </body>
 </html>
