@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AlexProductions · Website-Inhalte</title>
+<style>
+  :root {
+    --ink: #22191A;
+    --muted: #8C7F7C;
+    --line: #E7DDD8;
+    --bg: #F8F5F2;
+    --card: #FFFFFF;
+    --accent: #7A2E3B;
+    --accent-deep: #56202A;
+    --accent-soft: #F2E7E8;
+    --wa: #25d366;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 28px 18px 140px; }
+  header { margin-bottom: 22px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  h1 { font-size: 26px; line-height: 1.2; margin: 6px 0 8px; }
+  .lede { color: var(--muted); font-size: 15px; margin: 0; }
+  .status { background: var(--accent-soft); border-radius: var(--radius); padding: 14px 16px; margin: 18px 0 8px; font-size: 14px; }
+  .status strong { color: var(--accent-deep); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 18px 16px; margin: 14px 0; }
+  .qhead { display: flex; align-items: baseline; gap: 8px; margin-bottom: 2px; }
+  .num { flex: none; min-width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center; padding: 0 6px; }
+  h2 { font-size: 17px; margin: 0; }
+  .hint { color: var(--muted); font-size: 13px; margin: 2px 0 12px 32px; }
+  .field { margin-top: 12px; }
+  .field > label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .field .sub { font-weight: 400; color: var(--muted); }
+  input[type=text], textarea {
+    width: 100%; border: 1px solid var(--line); border-radius: 9px;
+    padding: 10px 11px; font: inherit; color: var(--ink); background: #fff;
+  }
+  textarea { resize: vertical; min-height: 56px; }
+  .opts { display: grid; gap: 8px; margin-top: 6px; }
+  label.opt {
+    display: flex; gap: 10px; align-items: flex-start;
+    border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 12px; cursor: pointer; transition: border-color .12s, background .12s;
+    font-size: 14px;
+  }
+  label.opt.checked { border-color: var(--accent); background: var(--accent-soft); }
+  label.opt input { margin-top: 3px; accent-color: var(--accent); width: 16px; height: 16px; flex: none; }
+  .case { border-left: 3px solid var(--accent); }
+  .bar {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.94); backdrop-filter: blur(8px);
+    border-top: 1px solid var(--line); padding: 12px 16px;
+  }
+  .bar .inner { max-width: 680px; margin: 0 auto; display: grid; gap: 8px; }
+  .send {
+    width: 100%; border: 0; border-radius: 12px; padding: 14px;
+    background: var(--wa); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer;
+  }
+  .copy {
+    width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 10px;
+    background: #fff; color: var(--ink); font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+  .barhint { text-align: center; font-size: 12px; color: var(--muted); margin: 0; }
+  .thanks { text-align: center; color: var(--muted); font-size: 14px; margin: 26px 0 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">AlexProductions · Website</div>
+    <h1>Deine Website braucht noch dich.</h1>
+    <p class="lede">Die neue Seite steht — jetzt fehlen nur noch deine Inhalte. Füll aus, was du parat hast. <strong>Du kannst auch in Etappen schicken:</strong> leere Felder werden einfach weggelassen.</p>
+    <div class="status">
+      📸 🎬 <strong>Fotos &amp; Videos</strong> bitte separat per <strong>WeTransfer oder iCloud-Link an kgellrich@berlinca.de</strong> schicken — hier im Formular reicht es, die Dateinamen zu nennen.
+    </div>
+  </header>
+
+  <form id="form">
+
+    <div class="card" data-section="Basics">
+      <div class="qhead"><span class="num">1</span><h2>Basics</h2></div>
+      <div class="field"><label>E-Mail-Adresse für Anfragen <span class="sub">(erscheint auf der Kontakt-Seite)</span></label><input type="text" data-label="Anfrage-E-Mail"></div>
+      <div class="field"><label>Antwortzeit auf Anfragen <span class="sub">(steht öffentlich auf der Website — ehrlich wählen)</span></label>
+        <div class="opts" data-radio="Antwortzeit">
+          <label class="opt"><input type="radio" name="zeit" value="48 Stunden schaffe ich"><span>48 Stunden schaffe ich</span></label>
+          <label class="opt"><input type="radio" name="zeit" value="lieber 2-3 Werktage"><span>Lieber „2–3 Werktage"</span></label>
+        </div>
+      </div>
+      <div class="field"><label>Social Media <span class="sub">(nur Profile, die du aktiv pflegst — verwaiste lassen wir weg)</span></label><input type="text" data-label="Aktive Social-Profile" placeholder="z. B. Instagram @…, YouTube …"></div>
+      <div class="field"><label>Impressum <span class="sub">(Anschrift, Telefon, ggf. USt-ID — Pflichtangaben)</span></label><textarea data-label="Impressum"></textarea></div>
+    </div>
+
+    <div class="card" data-section="Haltung">
+      <div class="qhead"><span class="num">2</span><h2>Haltung</h2></div>
+      <div class="hint">Für die Seite „Qualität als Markenzeichen" — Stichpunkte reichen völlig.</div>
+      <div class="field"><label>Kompetent <span class="sub">— welche Bereiche beherrschst du richtig gut?</span></label><textarea data-label="Kompetent"></textarea></div>
+      <div class="field"><label>Vernetzt <span class="sub">— wie groß ist dein Netzwerk grob, welche Gewerke holst du typisch dazu?</span></label><textarea data-label="Vernetzt"></textarea></div>
+      <div class="field"><label>Erfahren <span class="sub">— seit welchem Jahr machst du das?</span></label><input type="text" data-label="Im Geschäft seit"></div>
+      <div class="field"><label>Ablauf eines Projekts <span class="sub">— wir zeigen: Anfrage → Konzept &amp; Team → Produktion &amp; Lieferung. Passt das?</span></label>
+        <div class="opts" data-radio="Arbeitsweise">
+          <label class="opt"><input type="radio" name="ablauf" value="passt so"><span>Passt so</span></label>
+          <label class="opt"><input type="radio" name="ablauf" value="laeuft anders (siehe Anmerkung)"><span>Läuft bei mir anders → unten anmerken</span></label>
+        </div>
+        <div class="field"><input type="text" data-label="Arbeitsweise-Anmerkung" placeholder="optional: was ist anders?"></div>
+      </div>
+    </div>
+
+    <div class="card case" data-section="Case 1 · Livestream x Veranstaltung">
+      <div class="qhead"><span class="num">3a</span><h2>Case 1: Livestream × Veranstaltung</h2></div>
+      <div class="hint">Ein Streaming-Projekt (Kongress, Messe, Bühne).</div>
+      <div class="field"><label>Projekt-Titel + Kunde + Jahr</label><input type="text" data-label="Titel/Kunde/Jahr"></div>
+      <div class="field"><label>Darf das Projekt öffentlich gezeigt werden?</label>
+        <div class="opts" data-radio="Freigabe">
+          <label class="opt"><input type="radio" name="f1" value="ja"><span>Ja</span></label>
+          <label class="opt"><input type="radio" name="f1" value="muss ich klaeren"><span>Muss ich beim Kunden klären</span></label>
+        </div>
+      </div>
+      <div class="field"><label>Stichpunkte: Aufgabe → Umsetzung → Ergebnis</label><textarea data-label="Story"></textarea></div>
+      <div class="field"><label>Medien-Dateinamen <span class="sub">(was du per WeTransfer schickst)</span></label><input type="text" data-label="Medien"></div>
+    </div>
+
+    <div class="card case" data-section="Case 2 · Film x TV">
+      <div class="qhead"><span class="num">3b</span><h2>Case 2: Film × Fernsehen</h2></div>
+      <div class="hint">Eine Reportage oder Doku für einen Sender.</div>
+      <div class="field"><label>Projekt-Titel + Kunde + Jahr</label><input type="text" data-label="Titel/Kunde/Jahr"></div>
+      <div class="field"><label>Darf das Projekt öffentlich gezeigt werden?</label>
+        <div class="opts" data-radio="Freigabe">
+          <label class="opt"><input type="radio" name="f2" value="ja"><span>Ja</span></label>
+          <label class="opt"><input type="radio" name="f2" value="muss ich klaeren"><span>Muss ich beim Kunden klären</span></label>
+        </div>
+      </div>
+      <div class="field"><label>Stichpunkte: Aufgabe → Umsetzung → Ergebnis</label><textarea data-label="Story"></textarea></div>
+      <div class="field"><label>Medien-Dateinamen</label><input type="text" data-label="Medien"></div>
+    </div>
+
+    <div class="card case" data-section="Case 3 · Video x Politik">
+      <div class="qhead"><span class="num">3c</span><h2>Case 3: Video × Politik</h2></div>
+      <div class="hint">Eine Auftragsproduktion im politischen Umfeld.</div>
+      <div class="field"><label>Projekt-Titel + Kunde + Jahr</label><input type="text" data-label="Titel/Kunde/Jahr"></div>
+      <div class="field"><label>Darf das Projekt öffentlich gezeigt werden?</label>
+        <div class="opts" data-radio="Freigabe">
+          <label class="opt"><input type="radio" name="f3" value="ja"><span>Ja</span></label>
+          <label class="opt"><input type="radio" name="f3" value="muss ich klaeren"><span>Muss ich beim Kunden klären</span></label>
+        </div>
+      </div>
+      <div class="field"><label>Stichpunkte: Aufgabe → Umsetzung → Ergebnis</label><textarea data-label="Story"></textarea></div>
+      <div class="field"><label>Medien-Dateinamen</label><input type="text" data-label="Medien"></div>
+    </div>
+
+    <div class="card case" data-section="Case 4 · Foto x Kirche">
+      <div class="qhead"><span class="num">3d</span><h2>Case 4: Foto × Kirche</h2></div>
+      <div class="hint">Eine Fotoreportage (Jugendarbeit, Soziales).</div>
+      <div class="field"><label>Projekt-Titel + Kunde + Jahr</label><input type="text" data-label="Titel/Kunde/Jahr"></div>
+      <div class="field"><label>Darf das Projekt öffentlich gezeigt werden?</label>
+        <div class="opts" data-radio="Freigabe">
+          <label class="opt"><input type="radio" name="f4" value="ja"><span>Ja</span></label>
+          <label class="opt"><input type="radio" name="f4" value="muss ich klaeren"><span>Muss ich beim Kunden klären</span></label>
+        </div>
+      </div>
+      <div class="field"><label>Stichpunkte: Aufgabe → Umsetzung → Ergebnis</label><textarea data-label="Story"></textarea></div>
+      <div class="field"><label>Medien-Dateinamen</label><input type="text" data-label="Medien"></div>
+    </div>
+
+    <div class="card" data-section="Referenzen-Kommentare">
+      <div class="qhead"><span class="num">4</span><h2>Ein Satz pro Haus</h2></div>
+      <div class="hint">Erscheint, wenn Besucher auf das Logo tippen. Z. B. „Seit 2019 regelmäßig im Einsatz — tagesaktuell und Doku."</div>
+      <div class="field"><label>rbb</label><input type="text" data-label="rbb"></div>
+      <div class="field"><label>NDR</label><input type="text" data-label="NDR"></div>
+      <div class="field"><label>MDR</label><input type="text" data-label="MDR"></div>
+      <div class="field"><label>SWR</label><input type="text" data-label="SWR"></div>
+      <div class="field"><label>ORF</label><input type="text" data-label="ORF"></div>
+      <div class="field"><label>Sat.1</label><input type="text" data-label="Sat.1"></div>
+      <div class="field"><label>ProSieben</label><input type="text" data-label="ProSieben"></div>
+      <div class="field"><label>Erzbistum Berlin</label><input type="text" data-label="Erzbistum Berlin"></div>
+      <div class="field"><label>Landesmusikrat Berlin</label><input type="text" data-label="Landesmusikrat Berlin"></div>
+    </div>
+
+    <div class="card" data-section="Leistungen">
+      <div class="qhead"><span class="num">5</span><h2>Leistungen &amp; Technik</h2></div>
+      <div class="field"><label>Was machst du typisch selbst, was holst du dazu? <span class="sub">(je Leistung 1 Zeile: Video / Doku / Livestream / Foto)</span></label><textarea data-label="Selbst vs. Netzwerk"></textarea></div>
+      <div class="field"><label>Eigene Technik <span class="sub">(grobe Liste, was nennenswert ist)</span></label><textarea data-label="Technik"></textarea></div>
+    </div>
+
+    <div class="card" data-section="Werdegang">
+      <div class="qhead"><span class="num">6</span><h2>Dein Werdegang</h2></div>
+      <div class="field"><label>Stationen mit Jahreszahlen <span class="sub">(Ausbildung → Doku/Spielfilm → Sender → heute)</span></label><textarea data-label="Stationen"></textarea></div>
+      <div class="field"><label>3–5 Stichpunkte „persönlich" <span class="sub">(wir machen einen nahbaren Absatz daraus)</span></label><textarea data-label="Persoenlich"></textarea></div>
+      <div class="field"><label>Porträtfotos <span class="sub">(Dateinamen — Fotos per WeTransfer)</span></label><input type="text" data-label="Portraets"></div>
+    </div>
+
+    <p class="thanks">Danke dir! Jede Antwort ersetzt direkt einen Platzhalter auf der Website.</p>
+  </form>
+</div>
+
+<div class="bar">
+  <div class="inner">
+    <button class="send" id="send" type="button">Antworten an Karl senden (WhatsApp)</button>
+    <button class="copy" id="copy" type="button">…oder Text kopieren &amp; anders schicken</button>
+    <p class="barhint">Leere Felder werden weggelassen. Du kannst mehrfach schicken.</p>
+  </div>
+</div>
+
+<script>
+  var WHATSAPP_NUMBER = "4915209217901";
+
+  document.querySelectorAll("label.opt input").forEach(function (inp) {
+    inp.addEventListener("change", function () {
+      document.querySelectorAll('input[name="' + inp.name + '"]').forEach(function (r) {
+        r.closest("label.opt").classList.toggle("checked", r.checked);
+      });
+    });
+  });
+
+  function buildMessage() {
+    var L = ["*Website-Inhalte · AlexProductions*"];
+    document.querySelectorAll("[data-section]").forEach(function (card) {
+      var lines = [];
+      card.querySelectorAll("[data-label]").forEach(function (el) {
+        var v = (el.value || "").trim();
+        if (v) lines.push("- " + el.getAttribute("data-label") + ": " + v);
+      });
+      card.querySelectorAll("[data-radio]").forEach(function (group) {
+        var checked = group.querySelector("input:checked");
+        if (checked) lines.push("- " + group.getAttribute("data-radio") + ": " + checked.value);
+      });
+      if (lines.length) {
+        L.push("");
+        L.push("*" + card.getAttribute("data-section") + "*");
+        L.push.apply(L, lines);
+      }
+    });
+    return L.length > 1 ? L.join("\n") : null;
+  }
+
+  document.getElementById("send").addEventListener("click", function () {
+    var msg = buildMessage();
+    if (!msg) { alert("Noch nichts ausgefüllt — füll mindestens ein Feld aus."); return; }
+    window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(msg), "_blank");
+  });
+
+  document.getElementById("copy").addEventListener("click", function () {
+    var msg = buildMessage();
+    if (!msg) { alert("Noch nichts ausgefüllt — füll mindestens ein Feld aus."); return; }
+    navigator.clipboard.writeText(msg).then(function () {
+      alert("Kopiert! Du kannst den Text jetzt z. B. in eine Mail einfügen.");
+    });
+  });
+</script>
+</body>
+</html>
